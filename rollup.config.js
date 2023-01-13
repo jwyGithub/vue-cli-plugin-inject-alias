@@ -1,18 +1,13 @@
-import { defineConfig } from 'rollup';
-import ts from 'rollup-plugin-typescript2';
+const { defineConfig } = require('rollup');
+const ts = require('rollup-plugin-typescript2');
 
-export default defineConfig({
+module.exports = defineConfig({
     input: './src/index.ts',
     output: [
         {
             format: 'cjs',
             exports: 'default',
             file: 'dist/index.cjs.js'
-        },
-        {
-            format: 'esm',
-            exports: 'default',
-            file: 'dist/index.esm.js'
         }
     ],
     plugins: [
