@@ -16,7 +16,7 @@ automatically generate alias based on path
 vue add vue-cli-plugin-inject-alias
 ```
 
-**`tips : In order to get a better path prompt, be sure to configure the jsconfig.json file or tsconfig.json file in the project`**
+**tips : In order to get a better path prompt, be sure to configure the jsconfig.json file or tsconfig.json file in the project**
 
 ## example
 
