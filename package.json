@@ -1,0 +1,46 @@
+{
+    "name": "vue-cli-plugin-inject-alias",
+    "type": "module",
+    "version": "0.0.1",
+    "description": "automatically generate alias based on path",
+    "author": "jiangweiye <jiangweiye@outlook.com> (https://github.com/jwyGithub)",
+    "license": "MIT",
+    "homepage": "https://github.com/jwyGithub/vue-cli-plugin-inject-alias",
+    "keywords": [
+        "vue",
+        "vue-cli",
+        "vue-cli-plugin",
+        "vue-cli-plugin-alias",
+        "alias"
+    ],
+    "exports": {
+        ".": {
+            "require": "./dist/index.cjs.js",
+            "import": "./dist/index.esm.js"
+        }
+    },
+    "main": "./dist/index.cjs.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "rollup -c",
+        "release": "npm run build && bumpp package.json --commit --push --tag && npm publish --access=public",
+        "lint": "eslint ."
+    },
+    "peerDependencies": {
+        "@vue/cli-service": "*"
+    },
+    "devDependencies": {
+        "@jiangweiye/eslint-config": "^0.0.21",
+        "@types/node": "^18.11.18",
+        "@vue/cli-service": "~5.0.0",
+        "bumpp": "^8.2.1",
+        "eslint": "^8.31.0",
+        "rollup": "^3.9.1",
+        "rollup-plugin-typescript2": "^0.34.1",
+        "typescript": "^4.9.4"
+    }
+}
+
