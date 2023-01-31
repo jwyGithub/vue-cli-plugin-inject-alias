@@ -19,7 +19,10 @@ function alias(api: PluginAPI) {
         return;
     }
     api.configureWebpack(config => {
-        const baseAlias = config.resolve?.alias || {};
+        let baseAlias = {};
+        if (config.resolve && config.resolve.alias) {
+            baseAlias = config.resolve.alias;
+        }
         return {
             resolve: {
                 alias: { ...genAlias(root), ...baseAlias }
