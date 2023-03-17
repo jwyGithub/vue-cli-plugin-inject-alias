@@ -1,7 +1,7 @@
-const { defineConfig } = require('rollup');
-const ts = require('rollup-plugin-typescript2');
+import { defineConfig } from 'rollup';
+import ts from 'rollup-plugin-typescript2';
 
-module.exports = defineConfig({
+export default defineConfig({
     input: './src/index.ts',
     output: [
         {
@@ -20,7 +20,8 @@ module.exports = defineConfig({
                     declarationDir: 'dist',
                     allowJs: true
                 },
-                include: ['src/**/*']
+                include: ['src/**/*'],
+                exclude: ['rollup.config.ts']
             },
             clean: true,
             useTsconfigDeclarationDir: true

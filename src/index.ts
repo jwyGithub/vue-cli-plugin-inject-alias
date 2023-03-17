@@ -23,6 +23,7 @@ function alias(api: PluginAPI) {
         if (config.resolve && config.resolve.alias) {
             baseAlias = config.resolve.alias;
         }
+
         return {
             resolve: {
                 alias: { ...genAlias(root), ...baseAlias }

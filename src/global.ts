@@ -3,9 +3,8 @@ export type GetDirs = Array<{
     dirPath: string;
 }>;
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-export type AutoAlias = {
+export interface AutoAlias {
     root: string;
     tsconfig: string;
-};
+}
 
