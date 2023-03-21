@@ -1,6 +1,10 @@
 import { existsSync, lstatSync, readdirSync } from 'fs';
 import { join } from 'path';
-import type { GetDirs } from './global';
+
+export type GetDirs = Array<{
+    dirName: string;
+    dirPath: string;
+}>;
 
 /**
  * @description 是否是文件夹

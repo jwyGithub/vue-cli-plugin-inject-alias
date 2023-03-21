@@ -18,9 +18,10 @@
         }
     },
     "main": "./dist/index.cjs.js",
-    "types": "./dist/index.d.ts",
+    "types": "./dist/types/index.d.ts",
     "files": [
-        "dist"
+        "dist",
+        "alias.json"
     ],
     "scripts": {
         "build": "rollup -c rollup.config.ts --configPlugin rollup-plugin-typescript2",
@@ -41,3 +42,4 @@
         "typescript": "^5.0.2"
     }
 }
+

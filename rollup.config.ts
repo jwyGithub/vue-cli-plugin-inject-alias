@@ -17,7 +17,7 @@ export default defineConfig({
                 compilerOptions: {
                     declaration: true,
                     declarationMap: false,
-                    declarationDir: 'dist',
+                    declarationDir: 'dist/types',
                     allowJs: true
                 },
                 include: ['src/**/*'],
@@ -27,6 +27,6 @@ export default defineConfig({
             useTsconfigDeclarationDir: true
         })
     ],
-    external: ['@vue/cli-service', 'path', 'fs']
+    external: ['@vue/cli-service', 'path', 'fs', 'url']
 });
 

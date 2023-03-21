@@ -1,6 +1,15 @@
-import { join } from 'path';
+import { dirname, join, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import type { PluginAPI } from '@vue/cli-service';
 import { getDirs, hasFile } from './shared';
+import { syncJson } from './sync';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const ALIAS_JSON_PATH = resolve(__dirname, '../alias.json');
+
+const jsconfig = (root: string) => join(root, 'jsconfig.json');
+const tsconfig = (root: string) => join(root, 'tsconfig.json');
 
 function genAlias(root: string) {
     const dirs = getDirs(root);
@@ -24,9 +33,21 @@ function alias(api: PluginAPI) {
             baseAlias = config.resolve.alias;
         }
 
+        const _alias = { ...genAlias(root), ...baseAlias };
+
+        syncJson({
+            extendJson: ALIAS_JSON_PATH,
+            jsJson: jsconfig(process.cwd()),
+            tsJson: tsconfig(process.cwd()),
+            alias: _alias,
+            root,
+            prefix: '@',
+            mode: 'all'
+        });
+
         return {
             resolve: {
-                alias: { ...genAlias(root), ...baseAlias }
+                alias: _alias
             }
         };
     });
