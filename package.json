@@ -1,6 +1,6 @@
 {
     "name": "vue-cli-plugin-inject-alias",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "automatically generate alias based on path",
     "author": "jiangweiye <jiangweiye@outlook.com> (https://github.com/jwyGithub)",
     "license": "MIT",
@@ -42,4 +42,3 @@
         "typescript": "^5.0.2"
     }
 }
-
