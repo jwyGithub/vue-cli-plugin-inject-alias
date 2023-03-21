@@ -4,7 +4,7 @@ automatically generate alias based on path
 
 <p align="center">
   <img src="https://img.shields.io/npm/v/vue-cli-plugin-inject-alias" alt='version'>
-  <img src="https://img.shields.io/npm/dy/vue-cli-plugin-inject-alias" alt='download'>
+  <img src="https://img.shields.io/npm/dm/vue-cli-plugin-inject-alias" alt='download'>
   <img src="https://img.shields.io/github/issues/jwyGithub/vue-cli-plugin-inject-alias" alt='issues'>
   <img src="https://img.shields.io/github/license/jwyGithub/vue-cli-plugin-inject-alias" alt='license'>
 </p>
