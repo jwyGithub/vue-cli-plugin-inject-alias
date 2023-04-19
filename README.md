@@ -16,6 +16,22 @@ automatically generate alias based on path
 vue add vue-cli-plugin-inject-alias
 ```
 
+## setting
+
+> tsconfig.json
+
+```json
+{
+    "extends": "@jiangweiye/tsconfig/tsconfig.alias.json",
+    "compilerOptions": {
+        "baseUrl": "./"
+        // ...
+    }
+}
+```
+
+**please ensure that @jiangweiye/tsconfig is installed**
+
 **tips : In order to get a better path prompt, be sure to configure the jsconfig.json file or tsconfig.json file in the project**
 
 ## example

@@ -5,6 +5,7 @@ importers:
   .:
     specifiers:
       '@jiangweiye/eslint-config': ^0.0.27
+      '@jiangweiye/tsconfig': ^0.0.4
       '@types/node': ^18.15.3
       '@vue/cli-service': ~5.0.8
       bumpp: ^9.0.0
@@ -14,6 +15,7 @@ importers:
       typescript: ^5.0.2
     devDependencies:
       '@jiangweiye/eslint-config': 0.0.27_j4766f7ecgqbon3u7zlxn5zszu
+      '@jiangweiye/tsconfig': 0.0.4_@types+node@18.15.3
       '@types/node': 18.15.3
       '@vue/cli-service': 5.0.8
       bumpp: 9.0.0
@@ -1461,6 +1463,17 @@ packages:
       - jest
       - supports-color
       - typescript
+    dev: true
+
+  /@jiangweiye/tsconfig/0.0.4_@types+node@18.15.3:
+    resolution: {integrity: sha512-suqjHv6sW9149imwjqgYWqfDN94cESelo6tYNrWzRrDbVLDxW+46D/dZS7Y8eNRXjYoKYsBJ0gaVPwmqwGj7KA==}
+    peerDependencies:
+      '@types/node': '*'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+    dependencies:
+      '@types/node': 18.15.3
     dev: true
 
   /@jridgewell/gen-mapping/0.1.1:
