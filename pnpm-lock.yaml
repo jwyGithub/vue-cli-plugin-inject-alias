@@ -7,7 +7,7 @@ importers:
       '@jiangweiye/eslint-config': ^0.0.27
       '@jiangweiye/tsconfig': ^0.0.4
       '@types/node': ^18.15.3
-      '@vue/cli-service': ~5.0.8
+      '@vue/cli-service': ~5.0.0
       bumpp: ^9.0.0
       eslint: ^8.36.0
       rollup: ^3.19.1
@@ -43,18 +43,20 @@ importers:
 
   example/vue-cli-sample-ts:
     specifiers:
+      '@jiangweiye/tsconfig': 0.0.4
       '@vue/cli-plugin-babel': ~5.0.0
       '@vue/cli-plugin-typescript': ~5.0.0
       '@vue/cli-service': ~5.0.0
       core-js: ^3.8.3
       typescript: ~4.5.5
       vue: ^2.6.14
-      vue-cli-plugin-inject-alias: workspace:*
+      vue-cli-plugin-inject-alias: workspace:^0.0.7
       vue-template-compiler: ^2.6.14
     dependencies:
       core-js: 3.29.1
       vue: 2.7.14
     devDependencies:
+      '@jiangweiye/tsconfig': 0.0.4
       '@vue/cli-plugin-babel': 5.0.8_dsweei6s2qqy4g2iw6sul3c4kq
       '@vue/cli-plugin-typescript': 5.0.8_4cbkxaoezvjfht7xelw77rdxc4
       '@vue/cli-service': 5.0.8_rhqkolmkwunxzlyyxxsuwaiuri
@@ -1463,6 +1465,15 @@ packages:
       - jest
       - supports-color
       - typescript
+    dev: true
+
+  /@jiangweiye/tsconfig/0.0.4:
+    resolution: {integrity: sha512-suqjHv6sW9149imwjqgYWqfDN94cESelo6tYNrWzRrDbVLDxW+46D/dZS7Y8eNRXjYoKYsBJ0gaVPwmqwGj7KA==}
+    peerDependencies:
+      '@types/node': '*'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
     dev: true
 
   /@jiangweiye/tsconfig/0.0.4_@types+node@18.15.3:

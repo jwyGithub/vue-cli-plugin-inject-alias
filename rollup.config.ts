@@ -2,11 +2,11 @@ import { defineConfig } from 'rollup';
 import ts from 'rollup-plugin-typescript2';
 
 export default defineConfig({
-    input: './src/index.ts',
+    input: ['./src/index.ts'],
     output: [
         {
             format: 'cjs',
-            exports: 'default',
+            exports: 'auto',
             file: 'dist/index.cjs.js'
         }
     ],

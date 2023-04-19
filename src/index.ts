@@ -1,27 +1,30 @@
-import { dirname, join, resolve } from 'path';
-import { fileURLToPath } from 'url';
-import type { PluginAPI } from '@vue/cli-service';
-import { getDirs, hasFile } from './shared';
+import { join, resolve } from 'path';
+import type { PluginAPI, ProjectOptions } from '@vue/cli-service';
+import { getDirs, getPluginConfig, hasFile, mergeConfig } from './shared';
 import { syncJson } from './sync';
+import { PLUGIN_NAME } from './config';
 
-const ALIAS_JSON_PATH = resolve(process.cwd(), 'node_modules/@jiangweiye/tsconfig/tsconfig.alias.json');
+const ALIAS_JSON_PATH = (cwd: string) => resolve(cwd, 'node_modules/@jiangweiye/tsconfig/tsconfig.alias.json');
 
 const jsconfig = (root: string) => join(root, 'jsconfig.json');
 const tsconfig = (root: string) => join(root, 'tsconfig.json');
 
-function genAlias(root: string) {
+function genAlias(root: string, prefix: string) {
     const dirs = getDirs(root);
     return dirs.reduce<{ [key: string]: string }>((result, item) => {
-        const key = `@${item.dirName}`;
+        const key = `${prefix}${item.dirName}`;
         const value = item.dirPath;
         result[key] = value;
         return result;
     }, {});
 }
 
-function alias(api: PluginAPI) {
+function alias(api: PluginAPI, options: ProjectOptions) {
+    const { pluginOptions = {} } = options;
     const cwd = api.getCwd();
-    const root = join(cwd, 'src');
+    // 插件配置
+    const { mode, prefix, root } = mergeConfig(pluginOptions, getPluginConfig(cwd))[PLUGIN_NAME];
+
     if (!hasFile(root)) {
         return;
     }
@@ -31,16 +34,16 @@ function alias(api: PluginAPI) {
             baseAlias = config.resolve.alias;
         }
 
-        const _alias = { ...genAlias(root), ...baseAlias };
+        const _alias = { ...genAlias(root, prefix), ...baseAlias };
 
         syncJson({
-            extendJson: ALIAS_JSON_PATH,
-            jsJson: jsconfig(process.cwd()),
-            tsJson: tsconfig(process.cwd()),
+            extendJson: ALIAS_JSON_PATH(cwd),
+            jsJson: jsconfig(cwd),
+            tsJson: tsconfig(cwd),
             alias: _alias,
             root,
-            prefix: '@',
-            mode: 'all'
+            prefix,
+            mode
         });
 
         return {

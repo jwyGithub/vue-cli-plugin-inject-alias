@@ -16,6 +16,55 @@ automatically generate alias based on path
 vue add vue-cli-plugin-inject-alias
 ```
 
+## config
+
+> vue.config.js
+
+```typescript
+const { resolve } = require('path');
+module.exports = defineConfig({
+    // other config
+    transpileDependencies: true,
+    pluginOptions: {
+        'vue-cli-plugin-inject-alias': {
+            mode: 'all',
+            prefix: '@',
+            root: resolve(__dirname, './src')
+        }
+    }
+});
+```
+
+## Option
+
+```typescript
+export interface AutoAlias {
+    /**
+     * @description the root directory where the alias needs to be generated is src by default
+     * @default src
+     */
+    root: string;
+
+    /**
+     * @description prefix for generating aliases
+     * @default @
+     */
+    prefix: string;
+
+    /**
+     * @description synchronize the mode of json configuration
+     * @default all
+     */
+    mode: 'extends' | 'sync' | 'all';
+}
+```
+
+> mode
+
+-   extends: inheritance mode, only typescript projects are supported
+-   sync: synchronization mode, supporting typescript and javascript projects. When enabled, the generated paths will be automatically synchronized to tsconfig.json/jsconfig.json
+-   all: enable both inheritance mode and synchronization mode. The default is all
+
 ## setting
 
 > tsconfig.json

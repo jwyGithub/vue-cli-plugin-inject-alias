@@ -1,4 +1,5 @@
 {
+    "extends": "@jiangweiye/tsconfig/tsconfig.alias.json",
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",
@@ -12,35 +13,11 @@
         "useDefineForClassFields": true,
         "sourceMap": true,
         "baseUrl": ".",
-        "types": [
-            "webpack-env"
-        ],
-        "paths": {
-            "@/*": [
-                "src/*"
-            ],
-            "@assets/*": [
-                "src/assets/*"
-            ],
-            "@components/*": [
-                "src/components/*"
-            ]
-        },
-        "lib": [
-            "esnext",
-            "dom",
-            "dom.iterable",
-            "scripthost"
-        ]
+        "types": ["webpack-env"],
+        "paths": {},
+        "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.vue",
-        "tests/**/*.ts",
-        "tests/**/*.tsx"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
+    "exclude": ["node_modules"]
 }
+
