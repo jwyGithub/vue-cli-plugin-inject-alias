@@ -1,18 +1,10 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { parse } from 'path';
+import type { CompilerOptions, MapLike } from 'typescript';
 import { hasFile } from './shared';
 
-export interface IPaths {
-    [key: string]: string[];
-}
-
-export interface IJson {
+export interface IJson extends CompilerOptions {
     [key: string]: any;
-    compilerOptions: {
-        [key: string]: any;
-        baseUrl: string;
-        paths: IPaths;
-    };
 }
 
 /**
@@ -35,8 +27,8 @@ export function getJson(jsonPath: string): IJson {
  * @returns IJson
  */
 export function mergeJson(target: IJson, source: IJson): IJson {
-    const targetPaths: IPaths = target.compilerOptions?.paths ?? {};
-    const sourcePaths: IPaths = source.compilerOptions?.paths ?? {};
+    const targetPaths: MapLike<string[]> = target.compilerOptions?.paths ?? {};
+    const sourcePaths: MapLike<string[]> = source.compilerOptions?.paths ?? {};
     for (const pathKey in targetPaths) {
         if (!Reflect.has(sourcePaths, pathKey)) {
             sourcePaths[pathKey] = targetPaths[pathKey];
@@ -58,8 +50,8 @@ export function mergeJson(target: IJson, source: IJson): IJson {
  * @returns IJson
  */
 export function removePath(pathKey: string, source: IJson): IJson {
-    const sourcePaths: IPaths = source.compilerOptions.paths;
-    Reflect.deleteProperty(sourcePaths, pathKey);
+    const sourcePaths: MapLike<string[]> | undefined = source.compilerOptions.paths;
+    sourcePaths && Reflect.deleteProperty(sourcePaths, pathKey);
     return {
         ...source,
         compilerOptions: {

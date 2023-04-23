@@ -1,13 +1,19 @@
-import { join, resolve } from 'path';
+import { join } from 'path';
 import type { PluginAPI, ProjectOptions } from '@vue/cli-service';
-import { getDirs, getPluginConfig, hasFile, mergeConfig } from './shared';
+import { getDirs, hasFile, mergeConfig } from './shared';
 import { syncJson } from './sync';
-import { PLUGIN_NAME } from './config';
+import getPaths, { PLUGIN_NAME, defaultConfig } from './const';
+import type { AutoAlias, getPluginConfigFn } from './type';
 
-const ALIAS_JSON_PATH = (cwd: string) => resolve(cwd, 'node_modules/@jiangweiye/tsconfig/tsconfig.alias.json');
-
-const jsconfig = (root: string) => join(root, 'jsconfig.json');
-const tsconfig = (root: string) => join(root, 'tsconfig.json');
+const getPluginConfig: getPluginConfigFn = (root: string, defaultConfig: Required<AutoAlias>) => {
+    return {
+        [PLUGIN_NAME]: {
+            root: join(root, 'src'),
+            prefix: defaultConfig.prefix,
+            mode: defaultConfig.mode
+        }
+    };
+};
 
 function genAlias(root: string, prefix: string) {
     const dirs = getDirs(root);
@@ -22,8 +28,8 @@ function genAlias(root: string, prefix: string) {
 function alias(api: PluginAPI, options: ProjectOptions) {
     const { pluginOptions = {} } = options;
     const cwd = api.getCwd();
-    // 插件配置
-    const { mode, prefix, root } = mergeConfig(pluginOptions, getPluginConfig(cwd))[PLUGIN_NAME];
+    const { ALIAS_JSON_PATH, JSON_CONFIG_PATH, TS_CONFIG_PATH } = getPaths(cwd);
+    const { mode, prefix, root } = mergeConfig(pluginOptions, getPluginConfig(cwd, defaultConfig(cwd)))[PLUGIN_NAME];
 
     if (!hasFile(root)) {
         return;
@@ -37,9 +43,9 @@ function alias(api: PluginAPI, options: ProjectOptions) {
         const _alias = { ...genAlias(root, prefix), ...baseAlias };
 
         syncJson({
-            extendJson: ALIAS_JSON_PATH(cwd),
-            jsJson: jsconfig(cwd),
-            tsJson: tsconfig(cwd),
+            extendJson: ALIAS_JSON_PATH,
+            jsJson: JSON_CONFIG_PATH,
+            tsJson: TS_CONFIG_PATH,
             alias: _alias,
             root,
             prefix,

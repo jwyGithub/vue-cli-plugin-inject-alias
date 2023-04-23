@@ -1,8 +1,8 @@
-English | [简体中文](https://github.com/jwyGithub/vue-cli-plugin-inject-alias/blob/master/README.zh.md)
+[English](https://github.com/jwyGithub/vue-cli-plugin-inject-alias) | 简体中文
 
 # vue-cli-plugin-inject-alias
 
-automatically generate alias based on path
+基于路径自动生成别名
 
 <p align="center">
   <img src="https://img.shields.io/npm/v/vue-cli-plugin-inject-alias" alt='version'>
@@ -12,12 +12,12 @@ automatically generate alias based on path
 </p>
 <br />
 
-## Features
+## 特性
 
--   Support for custom alias prefixes
--   Supports synchronous mode configuration
+-   支持别名自定义
+-   支持同步模式自定义配置
 
-## Install
+## 安装
 
 ### with pnpm
 
@@ -43,33 +43,33 @@ npm install vue-cli-plugin-inject-alias -D
 vue add vue-cli-plugin-inject-alias
 ```
 
-## Option
+## 配置项
 
 ```typescript
 export interface AutoAlias {
     /**
-     * @description the root directory where the alias needs to be generated is src by default
+     * @description 别名生成的路径
      * @default src
      */
     root: string;
 
     /**
-     * @description prefix for generating aliases
+     * @description 别名前缀
      * @default @
      */
     prefix: string;
 
     /**
-     * @description synchronize the mode of json configuration
+     * @description json同步模式
      * @default all
      */
     mode: 'extends' | 'sync' | 'all' | 'off';
 }
 ```
 
-#### Mode
+#### 关于 mode
 
--   extends : when use `extends`,you can use the extensions option in the tsconfig.json of the current project, with the value of `@jiangweiye/tsconfig/tsconfig.alias.json`. therefore, you must ensure that `@jiangweiye/tsconfig` is installed in the project. for information on `@jiangweiye/tsconfig`, please refer to the [tsconfig](https://github.com/jwyGithub/tsconfig)
+-   extends : 使用“extends”时，可以使用当前项目的 tsconfig.json 中的 extends 选项，其值为`@jiangweiye/tsconfig/tsconfig.alias.json`。因此，必须确保在项目中安装了`@jingweiye/tsconfig`。有关`@jiangweiye/tsconfig`的信息，请参阅[tsconfig](https://github.com/jwyGithub/tsconfig)
 
 > vue.config.js
 
@@ -100,7 +100,7 @@ module.exports = defineConfig({
 }
 ```
 
--   sync : when use `sync`,the plugin will search for `tsconfig.json` or `jsconfig.json` in the root directory of the current project, so please ensure that this file exists in the project. The plugin will automatically generate paths options when running, and then write them to the file without the need for developers to manually add them
+-   sync : 当使用`sync`时，插件会在当前项目的根目录中搜索`tsconfig.json`或`jsconfig.json`，因此请确保该文件存在于项目中。该插件将在运行时自动生成`paths`选项，然后将它们写入文件，而无需开发人员手动添加
 
 > vue.config.js
 

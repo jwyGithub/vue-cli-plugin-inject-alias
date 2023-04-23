@@ -1,7 +1,5 @@
 import { existsSync, lstatSync, readdirSync } from 'fs';
 import { join } from 'path';
-import type { getPluginConfigFn } from './type';
-import { DEFAULT_CONFIG, PLUGIN_NAME } from './config';
 export interface ObjectKey {
     [key: string]: any;
 }
@@ -63,18 +61,4 @@ export function mergeConfig<T extends ObjectKey>(source: ObjectKey, target: T): 
 
     return source as T;
 }
-
-/**
- * @description 处理插件默认配置
- * @param root string
- */
-export const getPluginConfig: getPluginConfigFn = root => {
-    return {
-        [PLUGIN_NAME]: {
-            root: join(root, 'src'),
-            prefix: DEFAULT_CONFIG.prefix,
-            mode: DEFAULT_CONFIG.mode
-        }
-    };
-};
 
