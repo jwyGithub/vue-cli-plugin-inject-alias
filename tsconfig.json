@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
-        "target": "esnext",
+        "target": "ES2015",
         "useDefineForClassFields": true,
-        "lib": ["ESNext", "DOM"],
+        "lib": ["ESNext", "DOM", "ES2015", "ES2020.String"],
         "moduleResolution": "Node",
         "strict": true,
-        "module": "esnext"
+        "module": "esnext",
+        "importHelpers": true
     },
     "include": ["src/**/*", "rollup.config.ts"],
     "exclude": ["node_modules", "**/*.spec.ts"]
