@@ -49,7 +49,7 @@ export const getDirs = (path: string): GetDirs => {
  */
 export function mergeConfig<T extends ObjectKey>(source: ObjectKey, target: T): T {
     const isObject = (data: any) => Object.prototype.toString.call(data) === '[object Object]';
-    const hasKey = (data: any, key: string) => isObject(data) && Reflect.has(data, key);
+    const hasKey = (data: any, key: string) => isObject(data) && Object.prototype.hasOwnProperty.call(data, key);
     for (const key in target) {
         if (!hasKey(source, key)) {
             source[key] = target[key];
@@ -60,5 +60,9 @@ export function mergeConfig<T extends ObjectKey>(source: ObjectKey, target: T): 
     }
 
     return source as T;
+}
+
+export function startsWith(str: string, search: string, position: number = 0): boolean {
+    return str.substr(position, search.length) === search;
 }
 

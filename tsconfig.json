@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "ES2015",
+        "target": "ES5",
         "useDefineForClassFields": true,
         "lib": ["ESNext", "DOM", "ES2015", "ES2020.String"],
         "moduleResolution": "Node",

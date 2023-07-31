@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { parse } from 'path';
 import type { CompilerOptions, MapLike } from 'typescript';
-import { hasFile } from './shared';
+import { hasFile, startsWith } from './shared';
 
 export interface IJson extends CompilerOptions {
     [key: string]: any;
@@ -51,7 +51,8 @@ export function mergeJson(target: IJson, source: IJson): IJson {
  */
 export function removePath(pathKey: string, source: IJson): IJson {
     const sourcePaths: MapLike<string[]> | undefined = source.compilerOptions.paths;
-    sourcePaths && Reflect.deleteProperty(sourcePaths, pathKey);
+    // sourcePaths && Reflect.deleteProperty(sourcePaths, pathKey);
+    sourcePaths && delete sourcePaths[pathKey];
     return {
         ...source,
         compilerOptions: {
@@ -71,7 +72,8 @@ export function removePath(pathKey: string, source: IJson): IJson {
 export function genJson(alias: { [key: string]: string }, root: string, prefix: string): IJson {
     const { name: rootName } = parse(root);
     const paths = Object.keys(alias).reduce<{ [key: string]: string[] }>((result, pathKey) => {
-        if (pathKey.startsWith(prefix) && pathKey !== prefix) {
+        // if (pathKey.startsWith(prefix) && pathKey !== prefix) {
+        if (startsWith(pathKey, prefix) && pathKey !== prefix) {
             const { name } = parse(alias[pathKey]);
             result[`${pathKey}/*`] = [`${rootName}/${name}/*`];
         }
