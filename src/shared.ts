@@ -62,7 +62,3 @@ export function mergeConfig<T extends ObjectKey>(source: ObjectKey, target: T): 
     return source as T;
 }
 
-export function startsWith(str: string, search: string, position: number = 0): boolean {
-    return str.substr(position, search.length) === search;
-}
-
