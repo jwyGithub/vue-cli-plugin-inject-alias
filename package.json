@@ -28,8 +28,10 @@
         "release": "npm run build && bumpp package.json --commit --push --tag && npm publish --access=public",
         "lint": "eslint ."
     },
+    "optionalDependencies": {
+        "@jiangweiye/tsconfig": "*"
+    },
     "peerDependencies": {
-        "@jiangweiye/tsconfig": "*",
         "@vue/cli-service": "*"
     },
     "devDependencies": {
@@ -45,3 +47,4 @@
         "typescript": "^5.0.2"
     }
 }
+
