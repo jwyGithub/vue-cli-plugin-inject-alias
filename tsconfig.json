@@ -1,4 +1,5 @@
 {
+    "extends": "@jiangweiye/tsconfig/tsconfig.node.json",
     "compilerOptions": {
         "target": "ES5",
         "useDefineForClassFields": true,
@@ -8,7 +9,7 @@
         "module": "esnext",
         "importHelpers": true
     },
-    "include": ["src/**/*", "rollup.config.ts"],
+    "include": ["src/**/*", "tsup.config.ts"],
     "exclude": ["node_modules", "**/*.spec.ts"]
 }
 
