@@ -53,7 +53,6 @@ export function mergeConfig<T extends ObjectKey>(source: ObjectKey, target: T): 
     for (const key in target) {
         if (!hasKey(source, key)) {
             source[key] = target[key];
-            isObject(target[key]) && mergeConfig(source[key], target[key]);
         } else {
             isObject(target[key]) && mergeConfig(source[key], target[key]);
         }

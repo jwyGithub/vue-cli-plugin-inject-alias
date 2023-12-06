@@ -35,13 +35,9 @@ export function mergeJson(target: IJson, source: IJson): IJson {
             sourcePaths[pathKey] = targetPaths[pathKey];
         }
     }
-    return {
-        ...source,
-        compilerOptions: {
-            ...source.compilerOptions,
-            paths: sourcePaths
-        }
-    };
+    return Object.assign({}, source, {
+        compilerOptions: Object.assign({}, source.compilerOptions, { paths: sourcePaths })
+    });
 }
 
 /**
@@ -53,13 +49,9 @@ export function mergeJson(target: IJson, source: IJson): IJson {
 export function removePath(pathKey: string, source: IJson): IJson {
     const sourcePaths: MapLike<string[]> | undefined = source.compilerOptions.paths;
     sourcePaths && ReflectPolyfill.deleteProperty(sourcePaths, pathKey);
-    return {
-        ...source,
-        compilerOptions: {
-            ...source.compilerOptions,
-            paths: sourcePaths
-        }
-    };
+    return Object.assign({}, source, {
+        compilerOptions: Object.assign({}, source.compilerOptions, { paths: sourcePaths })
+    });
 }
 
 /**
