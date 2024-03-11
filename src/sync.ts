@@ -3,6 +3,7 @@ import { parse } from 'path';
 import type { CompilerOptions, MapLike } from 'typescript';
 import { hasFile } from './shared';
 import { ReflectPolyfill, StringPolyfill } from './polyfill';
+import type { AutoAlias } from './type';
 
 export interface IJson extends CompilerOptions {
     [key: string]: any;
@@ -80,13 +81,13 @@ export function genJson(alias: { [key: string]: string }, root: string, prefix: 
 }
 
 export interface ISyncJson {
-    extendJson: string;
+    aliasPath: string | null;
     jsJson: string;
     tsJson: string;
     alias: { [key: string]: string };
     prefix: string;
     root: string;
-    mode: 'extends' | 'sync' | 'all';
+    mode: AutoAlias['mode'];
 }
 
 /**
@@ -95,44 +96,24 @@ export interface ISyncJson {
  * @param jsJson jsconfig.json
  * @param tsJson tsconfig.json
  */
-export function syncJson({ extendJson, jsJson, tsJson, alias, prefix, root, mode }: ISyncJson) {
-    if (hasFile(extendJson) && ['all', 'extends'].includes(mode)) {
-        const json = genJson(alias, root, prefix);
-        hasFile(extendJson) && writeFileSync(extendJson, JSON.stringify(json, null, 4));
+export function syncJson({ aliasPath, jsJson, tsJson, alias, prefix, root, mode }: ISyncJson) {
+    const target = genJson(alias, root, prefix);
+
+    if (aliasPath && hasFile(aliasPath) && mode === 'sync') {
+        const source = getJson(aliasPath);
+        const newJson = mergeJson(target, source);
+        hasFile(aliasPath) && writeFileSync(aliasPath, JSON.stringify(newJson, null, 4));
+        return;
     }
-    if (hasFile(jsJson) && ['all', 'sync'].includes(mode)) {
-        const target = genJson(alias, root, prefix);
+    if (hasFile(jsJson) && mode === 'sync') {
         const source = getJson(jsJson);
         const newJson = mergeJson(target, source);
         hasFile(jsJson) && writeFileSync(jsJson, JSON.stringify(newJson, null, 4));
     }
-    if (hasFile(tsJson) && ['all', 'sync'].includes(mode)) {
-        const target = genJson(alias, root, prefix);
+    if (hasFile(tsJson) && mode === 'sync') {
         const source = getJson(tsJson);
         const newJson = mergeJson(target, source);
         hasFile(tsJson) && writeFileSync(tsJson, JSON.stringify(newJson, null, 4));
     }
-}
-
-export interface IRemoveJson {
-    extendJson: string;
-    jsJson: string;
-    tsJson: string;
-    unlinkDirName: string;
-    root: string;
-    prefix: string;
-    mode: 'extends' | 'sync' | 'all';
-}
-
-export function excutor(json: string, path: string) {
-    const newJson = removePath(path, getJson(json));
-    writeFileSync(json, JSON.stringify(newJson, null, 4));
-}
-
-export function removeJson({ extendJson, jsJson, tsJson, unlinkDirName, prefix, mode }: IRemoveJson) {
-    const toRemovePath = `${prefix}${unlinkDirName}/*`;
-    hasFile(extendJson) && ['all', 'extends'].includes(mode) && excutor(extendJson, toRemovePath);
-    hasFile(jsJson) && ['all', 'sync'].includes(mode) && excutor(jsJson, toRemovePath);
-    hasFile(tsJson) && ['all', 'sync'].includes(mode) && excutor(tsJson, toRemovePath);
 }
 

@@ -51,54 +51,29 @@ export interface AutoAlias {
      * @description 别名生成的路径
      * @default src
      */
-    root: string;
+    root?: string;
 
     /**
      * @description 别名前缀
      * @default @
      */
-    prefix: string;
+    prefix?: string;
 
     /**
      * @description json同步模式
      * @default all
      */
-    mode: 'extends' | 'sync' | 'all' | 'off';
+    mode?: 'sync' | 'off';
+
+    /**
+     * @description 别名配置文件路径
+     * @default tsconfig.json
+     */
+    aliasPath?: string;
 }
 ```
 
 #### 关于 mode
-
--   extends : 使用“extends”时，可以使用当前项目的 tsconfig.json 中的 extends 选项，其值为`@jiangweiye/tsconfig/tsconfig.alias.json`。因此，必须确保在项目中安装了`@jingweiye/tsconfig`。有关`@jiangweiye/tsconfig`的信息，请参阅[tsconfig](https://github.com/jwyGithub/tsconfig)
-
-> vue.config.js
-
-```javascript
-const { resolve } = require('path');
-module.exports = defineConfig({
-    // other config
-    transpileDependencies: true,
-    pluginOptions: {
-        'vue-cli-plugin-inject-alias': {
-            mode: 'extends',
-            prefix: '@',
-            root: resolve(__dirname, './src')
-        }
-    }
-});
-```
-
-> tsconfig.json
-
-```json
-{
-    "extends": "@jiangweiye/tsconfig/tsconfig.alias.json",
-    "compilerOptions": {
-        "baseUrl": "./"
-        // ...
-    }
-}
-```
 
 -   sync : 当使用`sync`时，插件会在当前项目的根目录中搜索`tsconfig.json`或`jsconfig.json`，因此请确保该文件存在于项目中。该插件将在运行时自动生成`paths`选项，然后将它们写入文件，而无需开发人员手动添加
 
@@ -113,7 +88,8 @@ module.exports = defineConfig({
         'vue-cli-plugin-inject-alias': {
             mode: 'sync',
             prefix: '@',
-            root: resolve(__dirname, './src')
+            root: resolve(__dirname, './src'),
+            aliasPath: path.resolve(__dirname, './tsconfig.json')
         }
     }
 });

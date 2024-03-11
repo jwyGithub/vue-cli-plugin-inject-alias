@@ -6,7 +6,8 @@ module.exports = {
         'consistent-return': 'off',
         '@typescript-eslint/no-unsafe-argument': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
-        '@typescript-eslint/unbound-method': 'off'
+        '@typescript-eslint/unbound-method': 'off',
+        complexity: 'off'
     }
 };
 

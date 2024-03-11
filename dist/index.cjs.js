@@ -149,28 +149,20 @@ function genJson(alias2, root, prefix) {
   };
 }
 __name(genJson, "genJson");
-function syncJson({ extendJson, jsJson, tsJson, alias: alias2, prefix, root, mode }) {
-  if (hasFile(extendJson) && [
-    "all",
-    "extends"
-  ].includes(mode)) {
-    const json = genJson(alias2, root, prefix);
-    hasFile(extendJson) && (0, import_fs2.writeFileSync)(extendJson, JSON.stringify(json, null, 4));
+function syncJson({ aliasPath, jsJson, tsJson, alias: alias2, prefix, root, mode }) {
+  const target = genJson(alias2, root, prefix);
+  if (aliasPath && hasFile(aliasPath) && mode === "sync") {
+    const source = getJson(aliasPath);
+    const newJson = mergeJson(target, source);
+    hasFile(aliasPath) && (0, import_fs2.writeFileSync)(aliasPath, JSON.stringify(newJson, null, 4));
+    return;
   }
-  if (hasFile(jsJson) && [
-    "all",
-    "sync"
-  ].includes(mode)) {
-    const target = genJson(alias2, root, prefix);
+  if (hasFile(jsJson) && mode === "sync") {
     const source = getJson(jsJson);
     const newJson = mergeJson(target, source);
     hasFile(jsJson) && (0, import_fs2.writeFileSync)(jsJson, JSON.stringify(newJson, null, 4));
   }
-  if (hasFile(tsJson) && [
-    "all",
-    "sync"
-  ].includes(mode)) {
-    const target = genJson(alias2, root, prefix);
+  if (hasFile(tsJson) && mode === "sync") {
     const source = getJson(tsJson);
     const newJson = mergeJson(target, source);
     hasFile(tsJson) && (0, import_fs2.writeFileSync)(tsJson, JSON.stringify(newJson, null, 4));
@@ -185,12 +177,12 @@ var defaultConfig = /* @__PURE__ */ __name((cwd) => {
   return {
     root: (0, import_path3.resolve)(cwd, "src"),
     prefix: "@",
-    mode: "all"
+    mode: "sync"
   };
 }, "defaultConfig");
 var const_default = /* @__PURE__ */ __name((cwd) => {
   return {
-    ALIAS_JSON_PATH: (0, import_path3.resolve)(cwd, "node_modules/@jiangweiye/tsconfig/tsconfig.alias.json"),
+    ALIAS_JSON_PATH: null,
     JSON_CONFIG_PATH: (0, import_path3.resolve)(cwd, "jsconfig.json"),
     TS_CONFIG_PATH: (0, import_path3.resolve)(cwd, "tsconfig.json")
   };
@@ -231,7 +223,7 @@ function alias(api, options) {
     }
     const _alias = Object.assign({}, genAlias(root, prefix), baseAlias);
     syncJson({
-      extendJson: ALIAS_JSON_PATH,
+      aliasPath: ALIAS_JSON_PATH,
       jsJson: JSON_CONFIG_PATH,
       tsJson: TS_CONFIG_PATH,
       alias: _alias,

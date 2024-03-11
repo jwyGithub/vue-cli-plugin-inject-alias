@@ -51,54 +51,29 @@ export interface AutoAlias {
      * @description the root directory where the alias needs to be generated is src by default
      * @default src
      */
-    root: string;
+    root?: string;
 
     /**
      * @description prefix for generating aliases
      * @default @
      */
-    prefix: string;
+    prefix?: string;
 
     /**
      * @description synchronize the mode of json configuration
      * @default all
      */
-    mode: 'extends' | 'sync' | 'all' | 'off';
+    mode?: 'sync' | 'off';
+
+    /**
+     * @description alias configuration file path
+     * @default tsconfig.json
+     */
+    aliasPath?: string;
 }
 ```
 
 #### Mode
-
--   extends : when use `extends`,you can use the extensions option in the tsconfig.json of the current project, with the value of `@jiangweiye/tsconfig/tsconfig.alias.json`. therefore, you must ensure that `@jiangweiye/tsconfig` is installed in the project. for information on `@jiangweiye/tsconfig`, please refer to the [tsconfig](https://github.com/jwyGithub/tsconfig)
-
-> vue.config.js
-
-```javascript
-const { resolve } = require('path');
-module.exports = defineConfig({
-    // other config
-    transpileDependencies: true,
-    pluginOptions: {
-        'vue-cli-plugin-inject-alias': {
-            mode: 'extends',
-            prefix: '@',
-            root: resolve(__dirname, './src')
-        }
-    }
-});
-```
-
-> tsconfig.json
-
-```json
-{
-    "extends": "@jiangweiye/tsconfig/tsconfig.alias.json",
-    "compilerOptions": {
-        "baseUrl": "./"
-        // ...
-    }
-}
-```
 
 -   sync : when use `sync`,the plugin will search for `tsconfig.json` or `jsconfig.json` in the root directory of the current project, so please ensure that this file exists in the project. The plugin will automatically generate paths options when running, and then write them to the file without the need for developers to manually add them
 
@@ -113,7 +88,8 @@ module.exports = defineConfig({
         'vue-cli-plugin-inject-alias': {
             mode: 'sync',
             prefix: '@',
-            root: resolve(__dirname, './src')
+            root: resolve(__dirname, './src'),
+            aliasPath: path.resolve(__dirname, './tsconfig.json')
         }
     }
 });

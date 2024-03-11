@@ -6,7 +6,7 @@ import type { PLUGIN_NAME } from './const';
 export interface AutoAlias {
     root?: string | undefined;
     prefix?: string | undefined;
-    mode?: 'extends' | 'sync' | 'all';
+    mode?: 'sync' | 'off';
 }
 
 /**

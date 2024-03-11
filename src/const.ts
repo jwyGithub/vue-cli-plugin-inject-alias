@@ -13,7 +13,7 @@ export const defaultConfig = (cwd: string): Required<AutoAlias> => {
     return {
         root: resolve(cwd, 'src'),
         prefix: '@',
-        mode: 'all'
+        mode: 'sync'
     };
 };
 
@@ -22,7 +22,7 @@ export const defaultConfig = (cwd: string): Required<AutoAlias> => {
  */
 export default (cwd: string) => {
     return {
-        ALIAS_JSON_PATH: resolve(cwd, 'node_modules/@jiangweiye/tsconfig/tsconfig.alias.json'),
+        ALIAS_JSON_PATH: null,
         JSON_CONFIG_PATH: resolve(cwd, 'jsconfig.json'),
         TS_CONFIG_PATH: resolve(cwd, 'tsconfig.json')
     };

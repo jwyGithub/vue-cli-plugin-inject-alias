@@ -43,7 +43,7 @@ function alias(api: PluginAPI, options: ProjectOptions) {
         const _alias = Object.assign({}, genAlias(root, prefix), baseAlias);
 
         syncJson({
-            extendJson: ALIAS_JSON_PATH,
+            aliasPath: ALIAS_JSON_PATH,
             jsJson: JSON_CONFIG_PATH,
             tsJson: TS_CONFIG_PATH,
             alias: _alias,
