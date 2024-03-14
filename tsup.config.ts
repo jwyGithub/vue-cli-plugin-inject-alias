@@ -9,10 +9,12 @@ export default defineConfig({
             js: `.${format}.js`
         };
     },
+    splitting: true,
+    cjsInterop: true,
     dts: true,
     target: ['node8'],
     format: ['cjs'],
-    minify: false,
+    minify: true,
     clean: true,
     tsconfig: path.resolve(__dirname, './tsconfig.json')
 });
