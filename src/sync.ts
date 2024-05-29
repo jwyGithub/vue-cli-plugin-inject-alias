@@ -1,5 +1,6 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { parse } from 'path';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { parse } from 'node:path';
+import process from 'node:process';
 import type { CompilerOptions, MapLike } from 'typescript';
 import { hasFile } from './shared';
 import { ReflectPolyfill, StringPolyfill } from './polyfill';
@@ -12,7 +13,7 @@ export interface IJson extends CompilerOptions {
 /**
  * @description 获取json
  * @param jsonPath jsonPath
- * @returns
+ * @returns IJson
  */
 export function getJson(jsonPath: string): IJson {
     try {
@@ -74,7 +75,7 @@ export function genJson(alias: { [key: string]: string }, root: string, prefix: 
     }, {});
     return {
         compilerOptions: {
-            paths: paths,
+            paths,
             baseUrl: './'
         }
     };
@@ -92,9 +93,6 @@ export interface ISyncJson {
 
 /**
  * @description 同步json文件
- * @param extendJson 继承的json
- * @param jsJson jsconfig.json
- * @param tsJson tsconfig.json
  */
 export function syncJson({ aliasPath, jsJson, tsJson, alias, prefix, root, mode }: ISyncJson) {
     const target = genJson(alias, root, prefix);
@@ -116,4 +114,3 @@ export function syncJson({ aliasPath, jsJson, tsJson, alias, prefix, root, mode 
         hasFile(tsJson) && writeFileSync(tsJson, JSON.stringify(newJson, null, 4));
     }
 }
-

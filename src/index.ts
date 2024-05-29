@@ -1,4 +1,4 @@
-import { join } from 'path';
+import { join } from 'node:path';
 import type { PluginAPI, ProjectOptions } from '@vue/cli-service';
 import { getDirs, hasFile, mergeConfig } from './shared';
 import { syncJson } from './sync';

@@ -80,7 +80,7 @@ export interface AutoAlias {
 > vue.config.js
 
 ```javascript
-const { resolve } = require('path');
+const { resolve } = require('node:path');
 module.exports = defineConfig({
     // other config
     transpileDependencies: true,
@@ -124,6 +124,5 @@ import xxx from '@scss/xxx';
 import xxx from '@store/xxx';
 import xxx from '@utils/xxx';
 import xxx from '@views/xxx';
-....
 ```
 

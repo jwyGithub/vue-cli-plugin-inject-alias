@@ -1,5 +1,6 @@
-import { existsSync, lstatSync, readdirSync } from 'fs';
-import { join } from 'path';
+import { existsSync, lstatSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
+
 export interface ObjectKey {
     [key: string]: any;
 }
@@ -12,7 +13,7 @@ export type GetDirs = Array<{
 /**
  * @description 是否是文件夹
  * @param path
- * @returns
+ * @returns  boolean
  */
 export const isDir = (path: string): boolean => {
     return lstatSync(path).isDirectory();
@@ -21,7 +22,7 @@ export const isDir = (path: string): boolean => {
 /**
  * @description 是否存在文件
  * @param path
- * @returns
+ * @returns boolean
  */
 export const hasFile = (path: string) => {
     return existsSync(path);
@@ -30,7 +31,7 @@ export const hasFile = (path: string) => {
 /**
  * @description 获取所有文件夹
  * @param path
- * @returns
+ * @returns GetDirs
  */
 export const getDirs = (path: string): GetDirs => {
     const dirs = readdirSync(path);
@@ -60,4 +61,3 @@ export function mergeConfig<T extends ObjectKey>(source: ObjectKey, target: T): 
 
     return source as T;
 }
-
