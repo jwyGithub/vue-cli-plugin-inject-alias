@@ -1,14 +1,14 @@
 {
     "extends": "@jiangweiye/tsconfig/tsconfig.node.json",
     "compilerOptions": {
+        "composite": false,
         "target": "ES5",
         "lib": ["ESNext", "DOM", "ES2015", "ES2020.String"],
         "useDefineForClassFields": true,
         "module": "esnext",
         "moduleResolution": "Node",
         "strict": true,
-        "importHelpers": true,
-        "composite": false
+        "importHelpers": true
     },
     "include": ["src/**/*", "tsup.config.ts"],
     "exclude": ["node_modules", "**/*.spec.ts"]

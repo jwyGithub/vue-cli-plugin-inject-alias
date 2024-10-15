@@ -19,7 +19,7 @@ export function getJson(jsonPath: string): IJson {
     try {
         const jsonText = readFileSync(jsonPath, 'utf-8');
         return JSON.parse(jsonText);
-    } catch (error) {
+    } catch {
         process.exit(0);
     }
 }

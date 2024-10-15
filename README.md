@@ -118,11 +118,11 @@ module.exports = defineConfig({
         |-- ....
 
 ```javascript
-import xxx from '@plugins/xxx';
-import xxx from '@router/xxx';
-import xxx from '@scss/xxx';
-import xxx from '@store/xxx';
-import xxx from '@utils/xxx';
-import xxx from '@views/xxx';
+// import xxx from '@plugins/xxx';
+// import xxx from '@router/xxx';
+// import xxx from '@scss/xxx';
+// import xxx from '@store/xxx';
+// import xxx from '@utils/xxx';
+// import xxx from '@views/xxx';
 ```
 
